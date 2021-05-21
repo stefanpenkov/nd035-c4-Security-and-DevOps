@@ -2,7 +2,10 @@ package com.example.demo.controllers;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,25 +30,31 @@ public class OrderController {
 	
 	@Autowired
 	private OrderRepository orderRepository;
-	
+
+	private static final Logger log = LoggerFactory.getLogger(UserController.class);
 	
 	@PostMapping("/submit/{username}")
 	public ResponseEntity<UserOrder> submit(@PathVariable String username) {
 		User user = userRepository.findByUsername(username);
 		if(user == null) {
-			return ResponseEntity.notFound().build();
+			log.warn("Create order error: User not found");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 		UserOrder order = UserOrder.createFromCart(user.getCart());
 		orderRepository.save(order);
+		log.info("Order submitted successfully ");
 		return ResponseEntity.ok(order);
 	}
 	
 	@GetMapping("/history/{username}")
 	public ResponseEntity<List<UserOrder>> getOrdersForUser(@PathVariable String username) {
 		User user = userRepository.findByUsername(username);
+		List<UserOrder> orders = orderRepository.findByUser(user);
+
 		if(user == null) {
-			return ResponseEntity.notFound().build();
+			log.warn("User not found");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
-		return ResponseEntity.ok(orderRepository.findByUser(user));
+		return ResponseEntity.ok(orders);
 	}
 }
