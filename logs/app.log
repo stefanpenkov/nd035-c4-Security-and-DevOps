@@ -1,0 +1,6 @@
+2021-05-19 12:33:12,838 INFO c.e.d.SareetaApplication [main] Starting SareetaApplication using Java 16.0.1 on ASPIRE-A2 with PID 5372 (C:\Java\eComerce\P04-eCommerce Application\starter_code\target\classes started by MSUser2 in C:\Java\eComerce\P04-eCommerce Application)
+2021-05-19 12:33:12,846 DEBUG c.e.d.SareetaApplication [main] Running with Spring Boot v2.4.5, Spring v5.3.6
+2021-05-19 12:33:12,846 INFO c.e.d.SareetaApplication [main] No active profile set, falling back to default profiles: default
+2021-05-19 12:33:15,931 DEBUG c.e.d.s.JWTAuthenticationVerficationFilter [main] Filter 'JWTAuthenticationVerficationFilter' configured for use
+2021-05-19 12:33:16,516 INFO c.e.d.SareetaApplication [main] Started SareetaApplication in 4.073 seconds (JVM running for 5.023)
+
